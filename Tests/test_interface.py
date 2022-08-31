@@ -5,10 +5,10 @@ import json
 TEST_DICT = {"y": 1, "x": 1}
 
 def setup_module(module):
-    os.system('C:\\Python\\webcalculator.exe start')
+    os.system('C:\\Python\\infotecs_test_task\\webcalculator.exe start')
     
 def teardown_module(module):
-    os.system('C:\\Python\\webcalculator.exe stop')
+    os.system('C:\\Python\\infotecs_test_task\\webcalculator.exe stop')
 
 def test_state():
     response = json.loads(requests.get('http://localhost:17678/api/state').text)
