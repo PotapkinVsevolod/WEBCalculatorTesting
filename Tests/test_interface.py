@@ -2,7 +2,7 @@ import os
 import requests
 import json
 
-TEST_DICT = {"y": 1, "x": 1}
+TEST_DICT = {"x": 1, "y": 2}
 
 def setup_module(module):
     os.system('C:\\Python\\infotecs_test_task\\webcalculator.exe start')
