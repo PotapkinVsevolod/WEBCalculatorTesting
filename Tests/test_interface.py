@@ -1,46 +1,54 @@
-import os
+import subprocess
 import requests
 import json
 
+PATH_TO_WEBCALCULATOR = "C:\\Python\\infotecs_test_task\\webcalculator.exe"
 TEST_DICT = {"x": 1, "y": 2}
+DEFAULT_HOST = "127.0.0.1"
+DEFAULT_PORT = "17678"
 
 def setup_module(module):
-    os.system('C:\\Python\\infotecs_test_task\\webcalculator.exe start')
+    subprocess.run([PATH_TO_WEBCALCULATOR, "start"])
     
 def teardown_module(module):
-    os.system('C:\\Python\\infotecs_test_task\\webcalculator.exe stop')
+    subprocess.run([PATH_TO_WEBCALCULATOR, "stop"])
 
 def test_state():
-    response = json.loads(requests.get('http://localhost:17678/api/state').text)
-    assert type(response) == dict
-    assert len(response) == 2
-    assert response["statusCode"] == 0
-    assert response["state"] == "OK"
+    response = requests.get(f'http://{DEFAULT_HOST}:{DEFAULT_PORT}/api/state')
+    responseJSON = json.loads(response.text)
+    assert type(responseJSON) == dict
+    assert len(responseJSON) == 2
+    assert responseJSON["statusCode"] == 0
+    assert responseJSON["state"] == "OK"
 
 def test_addition():
-    response = json.loads(requests.post('http://localhost:17678/api/addition', json=TEST_DICT).text)
-    assert type(response) == dict
-    assert len(response) == 2
-    assert response["statusCode"] == 0
-    assert type(response["result"]) == int
+    response = requests.post(f'http://{DEFAULT_HOST}:{DEFAULT_PORT}/api/addition', json=TEST_DICT)
+    responseJSON = json.loads(response.text)
+    assert type(responseJSON) == dict
+    assert len(responseJSON) == 2
+    assert responseJSON["statusCode"] == 0
+    assert type(responseJSON["result"]) == int
 
 def test_multiplication():
-    response = json.loads(requests.post('http://localhost:17678/api/multiplication', json=TEST_DICT).text)
-    assert type(response) == dict
-    assert len(response) == 2
-    assert response["statusCode"] == 0
-    assert type(response["result"]) == int
+    response = requests.post(f'http://{DEFAULT_HOST}:{DEFAULT_PORT}/api/multiplication', json=TEST_DICT)
+    responseJSON = json.loads(response.text)
+    assert type(responseJSON) == dict
+    assert len(responseJSON) == 2
+    assert responseJSON["statusCode"] == 0
+    assert type(responseJSON["result"]) == int
 
 def test_division():
-    response = json.loads(requests.post('http://localhost:17678/api/division', json=TEST_DICT).text)
-    assert type(response) == dict
-    assert len(response) == 2
-    assert response["statusCode"] == 0
-    assert type(response["result"]) == int
+    response = requests.post(f'http://{DEFAULT_HOST}:{DEFAULT_PORT}/api/division', json=TEST_DICT)
+    responseJSON = json.loads(response.text)
+    assert type(responseJSON) == dict
+    assert len(responseJSON) == 2
+    assert responseJSON["statusCode"] == 0
+    assert type(responseJSON["result"]) == int
 
 def test_remainder():
-    response = json.loads(requests.post('http://localhost:17678/api/remainder', json=TEST_DICT).text)
-    assert type(response) == dict
-    assert len(response) == 2
-    assert response["statusCode"] == 0
-    assert type(response["result"]) == int
+    response = requests.post(f'http://{DEFAULT_HOST}:{DEFAULT_PORT}/api/remainder', json=TEST_DICT)
+    responseJSON = json.loads(response.text)
+    assert type(responseJSON) == dict
+    assert len(responseJSON) == 2
+    assert responseJSON["statusCode"] == 0
+    assert type(responseJSON["result"]) == int
