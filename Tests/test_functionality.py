@@ -1,4 +1,5 @@
 import subprocess
+
 import requests
 
 
@@ -36,5 +37,5 @@ def test_stop():
 def test_restart():
     subprocess.run([PATH_TO_WEBCALCULATOR, "start"], check=True)
     subprocess.run([PATH_TO_WEBCALCULATOR, "restart"], check=True)
-    assert requests.get(url="http://127.0.0.1:17678/api/state", timeout=1.5)
+    assert requests.get(url="http://127.0.0.1:17678/api/state", timeout=3)
     subprocess.run([PATH_TO_WEBCALCULATOR, "stop"], check=True)
