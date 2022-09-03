@@ -1,5 +1,3 @@
-'''Тесты, проверяющие основную функциональность приложения: правильность вычисления результата
-при указании допустимых входных данных. Пример тела запроса: {“x”:42, “y”:24}. Значение - int. '''
 import subprocess
 import json
 import requests
@@ -16,7 +14,7 @@ def teardown_module():
 
 
 @pytest.mark.parametrize(
-    "_x, _y, expected_result",
+    "x, y, expected_result",
     [
         (
             2147483647,
@@ -65,18 +63,17 @@ def teardown_module():
         )
     ]
 )
-def test_addition(_x, _y, expected_result):
-    '''Тест, проверяющий корректность вычисления для API-метода addition (сложение).'''
+def test_addition(x, y, expected_result):
     response = requests.post(
         url="http://127.0.0.1:17678/api/addition",
-        json={"x": _x, "y": _y}, timeout=1.5
+        json={"x": x, "y": y}, timeout=1.5
     )
     data = json.loads(response.text)
     assert data["result"] == expected_result
 
 
 @pytest.mark.parametrize(
-    "_x, _y, expected_result",
+    "x, y, expected_result",
     [
         (
             2147483647,
@@ -130,18 +127,17 @@ def test_addition(_x, _y, expected_result):
         )
     ]
 )
-def test_multiplication(_x, _y, expected_result):
-    '''Тест, проверяющий корректность вычисления для API-метода multiplication (умножение).'''
+def test_multiplication(x, y, expected_result):
     response = requests.post(
         url="http://127.0.0.1:17678/api/multiplication",
-        json={"x": _x, "y": _y}, timeout=1.5
+        json={"x": x, "y": y}, timeout=1.5
     )
     data = json.loads(response.text)
     assert data["result"] == expected_result
 
 
 @pytest.mark.parametrize(
-    "_x, _y, expected_result",
+    "x, y, expected_result",
     [
         (
             2147483647,
@@ -180,18 +176,17 @@ def test_multiplication(_x, _y, expected_result):
         )
     ]
 )
-def test_division(_x, _y, expected_result):
-    '''Тест, проверяющий корректность вычисления для API-метода division (целочисленное деление).'''
+def test_division(x, y, expected_result):
     response = requests.post(
         url="http://127.0.0.1:17678/api/division",
-        json={"x": _x, "y": _y}, timeout=1.5
+        json={"x": x, "y": y}, timeout=1.5
     )
     data = json.loads(response.text)
     assert data["result"] == expected_result
 
 
 @pytest.mark.parametrize(
-    "_x, _y, expected_result",
+    "x, y, expected_result",
     [
         (
             2147483647,
@@ -235,11 +230,10 @@ def test_division(_x, _y, expected_result):
         )
     ]
 )
-def test_remainder(_x, _y, expected_result):
-    '''Тест, проверяющий корректность вычисления для API-метода remainder (остаток от деления).'''
+def test_remainder(x, y, expected_result):
     response = requests.post(
         url="http://127.0.0.1:17678/api/remainder",
-        json={"x": _x, "y": _y}, timeout=1.5
+        json={"x": x, "y": y}, timeout=1.5
     )
     data = json.loads(response.text)
     assert data["result"] == expected_result
