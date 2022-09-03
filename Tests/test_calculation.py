@@ -26,10 +26,11 @@ def teardown_module():
      (0, -123, -123),
      (0, 0, 0)])
 def test_addition(x, y, expected_result):
+   
     response_body = requests.post(
         url="http://127.0.0.1:17678/api/addition",
-        json={"x": x, "y": y}, timeout=1.5
-    ).json()
+        json={"x": x, "y": y}, timeout=1.5).json()
+
     assert response_body["result"] == expected_result
 
 
@@ -46,10 +47,11 @@ def test_addition(x, y, expected_result):
      (0, 0, 0),
      (256, -1, -256)])
 def test_multiplication(x, y, expected_result):
+    
     response_body = requests.post(
         url="http://127.0.0.1:17678/api/multiplication",
-        json={"x": x, "y": y}, timeout=1.5
-    ).json()
+        json={"x": x, "y": y}, timeout=1.5).json()
+
     assert response_body["result"] == expected_result
 
 
@@ -63,10 +65,11 @@ def test_multiplication(x, y, expected_result):
      (0, -987987, 0),
      (159260371, -1, -159260371)])
 def test_division(x, y, expected_result):
+    
     response_body = requests.post(
         url="http://127.0.0.1:17678/api/division",
-        json={"x": x, "y": y}, timeout=1.5
-    ).json()
+        json={"x": x, "y": y}, timeout=1.5).json()
+
     assert response_body["result"] == expected_result
 
 
@@ -81,8 +84,9 @@ def test_division(x, y, expected_result):
      (0, -98787, 0),
      (1100, -1, 0)])
 def test_remainder(x, y, expected_result):
+    
     response_body = requests.post(
         url="http://127.0.0.1:17678/api/remainder",
-        json={"x": x, "y": y}, timeout=1.5
-    ).json()
+        json={"x": x, "y": y}, timeout=1.5).json()
+
     assert response_body["result"] == expected_result
