@@ -17,8 +17,7 @@ def teardown_module():
 def test_state():
     response_body = requests.get(
         url='http://127.0.0.1:17678/api/state',
-        timeout=1.5
-    ).json()
+        timeout=1.5).json()
     assert len(response_body) == 2
     assert response_body["statusCode"] == 0
     assert response_body["state"] == "OK"
@@ -27,8 +26,7 @@ def test_state():
 def test_addition():
     response_body = requests.post(
         url='http://127.0.0.1:17678/api/addition',
-        json={"x": 1, "y": 2}, timeout=1.5
-    ).json()
+        json={"x": 1, "y": 2}, timeout=1.5).json()
     assert len(response_body) == 2
     assert response_body["statusCode"] == 0
     assert isinstance(response_body["result"], int)
@@ -37,8 +35,7 @@ def test_addition():
 def test_multiplication():
     response_body = requests.post(
         url='http://127.0.0.1:17678/api/multiplication',
-        json={"x": 1, "y": 2}, timeout=1.5
-    ).json()
+        json={"x": 1, "y": 2}, timeout=1.5).json()
     assert len(response_body) == 2
     assert response_body["statusCode"] == 0
     assert isinstance(response_body["result"], int)
@@ -47,8 +44,7 @@ def test_multiplication():
 def test_division():
     response_body = requests.post(
         url='http://127.0.0.1:17678/api/division',
-        json={"x": 1, "y": 2}, timeout=1.5
-    ).json()
+        json={"x": 1, "y": 2}, timeout=1.5).json()
     assert len(response_body) == 2
     assert response_body["statusCode"] == 0
     assert isinstance(response_body["result"], int)
@@ -57,8 +53,9 @@ def test_division():
 def test_remainder():
     response_body = requests.post(
         url='http://127.0.0.1:17678/api/remainder',
-        json={"x": 1, "y": 2}, timeout=1.5
-    ).json()
+        json={"x": 1, "y": 2}, timeout=1.5).json()
     assert len(response_body) == 2
     assert response_body["statusCode"] == 0
     assert isinstance(response_body["result"], int)
+
+
