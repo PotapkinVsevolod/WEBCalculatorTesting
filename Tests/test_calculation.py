@@ -7,11 +7,13 @@ PATH_TO_WEBCALCULATOR = "C:\\Python\\infotecs_test_task\\webcalculator.exe"
 
 def setup_module():
     '''Запуск вебкалькулятора.'''
-    subprocess.run([PATH_TO_WEBCALCULATOR, "start"], check=True)
+    subprocess.run([PATH_TO_WEBCALCULATOR, "start"],
+        check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 def teardown_module():
     '''Остановка вебкалькулятора.'''
-    subprocess.run([PATH_TO_WEBCALCULATOR, "stop"], check=True)
+    subprocess.run([PATH_TO_WEBCALCULATOR, "stop"],
+        check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 
 @pytest.mark.parametrize(
