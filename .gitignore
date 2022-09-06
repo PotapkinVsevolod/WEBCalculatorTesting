@@ -6,3 +6,14 @@ tests/__pycache__/functionality_test.cpython-310-pytest-7.1.2.pyc
 tests/__pycache__/http_methods_test.cpython-310-pytest-7.1.2.pyc
 tests/__pycache__/interface_test.cpython-310-pytest-7.1.2.pyc
 tests/__pycache__/negative_request_to_webcalculator_test.cpython-310-pytest-7.1.2.pyc
+tests/__pycache__/api_interface_test.cpython-310-pytest-7.1.2.pyc
+tests/__pycache__/api_methods_request_response_format_test.cpython-310-pytest-7.1.2.pyc
+tests/__pycache__/api_methods_request_response_formats_test.cpython-310-pytest-7.1.2.pyc
+tests/__pycache__/api_methods_response_format_test.cpython-310-pytest-7.1.2.pyc
+tests/__pycache__/api_methods_response_formats_test.cpython-310-pytest-7.1.2.pyc
+tests/__pycache__/calculation_result_test.cpython-310-pytest-7.1.2.pyc
+tests/__pycache__/calculation_results_test.cpython-310-pytest-7.1.2.pyc
+tests/__pycache__/correctness of calculation results_test.cpython-310-pytest-7.1.2.pyc
+tests/__pycache__/correctness_of_calculation_results_test.cpython-310-pytest-7.1.2.pyc
+tests/__pycache__/webcalculator__test.cpython-310-pytest-7.1.2.pyc
+tests/__pycache__/webcalculator_management_methods_test.cpython-310-pytest-7.1.2.pyc
