@@ -1,2 +1,8 @@
 Tests/test.py
 pytest.log
+.vscode/settings.json
+tests/__pycache__/calculation_test.cpython-310-pytest-7.1.2.pyc
+tests/__pycache__/functionality_test.cpython-310-pytest-7.1.2.pyc
+tests/__pycache__/http_methods_test.cpython-310-pytest-7.1.2.pyc
+tests/__pycache__/interface_test.cpython-310-pytest-7.1.2.pyc
+tests/__pycache__/negative_request_to_webcalculator_test.cpython-310-pytest-7.1.2.pyc
