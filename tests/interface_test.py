@@ -2,7 +2,7 @@ import subprocess
 
 import requests
 
-PATH_TO_WEBCALCULATOR = "C:\\Python\\infotecs_test_task\\webcalculator.exe"
+PATH_TO_WEBCALCULATOR = "C:\\Python\\infotecs_test_task\\src\\webcalculator.exe"
 
 def setup_module():
     '''Запуск вебкалькулятора.'''

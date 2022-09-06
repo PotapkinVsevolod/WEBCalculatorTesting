@@ -16,12 +16,12 @@ import requests
 
 def setup_module():
     '''Запуск вебкалькулятора.'''
-    subprocess.run(["C:\\Python\\infotecs_test_task\\webcalculator.exe", "start"], check=True)
+    subprocess.run(["C:\\Python\\infotecs_test_task\\src\\webcalculator.exe", "start"], check=True)
 
 
 def teardown_module():
     '''Остановка вебкалькулятора.'''
-    subprocess.run(["C:\\Python\\infotecs_test_task\\webcalculator.exe", "stop"], check=True)
+    subprocess.run(["C:\\Python\\infotecs_test_task\\src\\webcalculator.exe", "stop"], check=True)
 
 class TestCalculateError:
     def test_zero_division(self):

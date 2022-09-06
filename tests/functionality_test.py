@@ -3,7 +3,7 @@ import subprocess
 import requests
 import pytest
 
-PATH_TO_WEBCALCULATOR = "C:\\Python\\infotecs_test_task\\webcalculator.exe"
+PATH_TO_WEBCALCULATOR = "C:\\Python\\infotecs_test_task\\src\\webcalculator.exe"
 
 def test_start_webcalulator_on_specified_host_port_ok():
     host = "127.200.200.200"
