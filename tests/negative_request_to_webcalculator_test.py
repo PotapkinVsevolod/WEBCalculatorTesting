@@ -1,4 +1,9 @@
 '''
+Реализовать несколько негативных тестов (например, проверяющие правильность
+возвращаемых кодов ошибок)
+
+В случае ошибки при обработке запроса формат {"statusCode": код ошибки(int),
+"statusMessage": сообщение об ошибке}
 ______________________________________________________
 |Код ошибки	|Описание ошибки                          |
 |_____________________________________________________|
@@ -16,12 +21,16 @@ import requests
 
 def setup_module():
     '''Запуск вебкалькулятора.'''
-    subprocess.run(["C:\\Python\\infotecs_test_task\\resorces\\webcalculator.exe", "start"], check=True)
+    subprocess.run(
+        ["C:\\Python\\infotecs_test_task\\resources\\webcalculator.exe", "start"],
+        check=True)
 
 
 def teardown_module():
     '''Остановка вебкалькулятора.'''
-    subprocess.run(["C:\\Python\\infotecs_test_task\\src\\webcalculator.exe", "stop"], check=True)
+    subprocess.run(
+        ["C:\\Python\\infotecs_test_task\\resources\\webcalculator.exe", "stop"],
+        check=True)
 
 class TestCalculateError:
     def test_zero_division(self):
@@ -77,28 +86,39 @@ class TestNotIntegerValueError:
         assert response_body["statusCode"] == 3
         assert isinstance(response_body["statusMessage"], str)
 
+    def test_one_number_is_string(self):
+        '''Ожидаемый формат ответа - {"statusCode": 3, "statusMessage": сообщение об ошибке}
+        Описание ошибки - Одно из значений не является целым числом'''
+        response_body = requests.post(
+            url="http://127.0.0.1:17678/api/addition",
+            json={"x": "f", "y": 1}, timeout=1.5).json()
+        assert len(response_body) == 2
+        assert response_body["statusCode"] == 3
+        assert isinstance(response_body["statusMessage"], str)
+
 class TestValueSizeError:
-    def test_one_number_exceed(self):
+    def test_one_number_max_exceed(self):
         '''Требование к размеру значения - от -2147483648 до 2147483647
         Ожидаемый формат ответа - {"statusCode": 4, "statusMessage": сообщение об ошибке}
         Описание ошибки - Превышен размер одного из значений'''
         response_body = requests.post(
             url="http://127.0.0.1:17678/api/addition",
-            json={"x": 3, "y": 999999999999999999999}, timeout=1.5).json()
+            json={"x": 999999999999999999999, "y": 3}, timeout=1.5).json()
         assert len(response_body) == 2
         assert response_body["statusCode"] == 4
         assert isinstance(response_body["statusMessage"], str)
 
-    def test_two_number_exceed(self):
+    def test_one_number_min_exceed(self):
         '''Требование к размеру значения - от -2147483648 до 2147483647
         Ожидаемый формат ответа - {"statusCode": 4, "statusMessage": сообщение об ошибке}
         Описание ошибки - Превышен размер одного из значений'''
         response_body = requests.post(
             url="http://127.0.0.1:17678/api/addition",
-            json={"x": 999999999999999999999, "y": -999999999999999999999}, timeout=1.5).json()
+            json={"x": 3, "y": -999999999999999999999}, timeout=1.5).json()
         assert len(response_body) == 2
         assert response_body["statusCode"] == 4
         assert isinstance(response_body["statusMessage"], str)
+
 
 class TestInvalidRequestBodyError:
     def test_request_without_json(self):
@@ -121,12 +141,21 @@ class TestInvalidRequestBodyError:
         assert isinstance(response_body["statusMessage"], str)
 
     def test_other_names_of_keys(self):
-        '''Ожидаемый формат ответа - {"statusCode": 5, "statusMessage": сообщение об ошибке}
+        '''
+        Ожидаемый формат ответа - {"statusCode": 5, "statusMessage": сообщение об ошибке}
         Описание ошибки - Неправильный формат тела запроса'''
-        response_body = requests.get(
+        response_body = requests.post(
             url="http://127.0.0.1:17678/api/addition",
             json={"z": 42, "e": 24}, timeout=1.5).json()
         assert len(response_body) == 2
         assert response_body["statusCode"] == 5
         assert isinstance(response_body["statusMessage"], str)
 
+    def test_str_instead_of_json(self):
+        '''Ожидаемый формат ответа - {"statusCode": 5, "statusMessage": сообщение об ошибке}
+        Описание ошибки - Неправильный формат тела запроса'''
+        response_body = requests.post(
+            url="http://127.0.0.1:17678/api/addition", timeout=1.5, json="I am Json Statham").json()
+        assert len(response_body) == 2
+        assert response_body["statusCode"] == 5
+        assert isinstance(response_body["statusMessage"], str)

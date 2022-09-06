@@ -1,115 +1,44 @@
 import subprocess
 
+import pytest
 import requests
 
-PATH_TO_WEBCALCULATOR = "C:\\Python\\infotecs_test_task\\resorces\\webcalculator.exe"
+PATH_TO_WEBCALCULATOR = "C:\\Python\\infotecs_test_task\\resources\\webcalculator.exe"
+API_URL = "http://127.0.0.1:17678/api/"
 
 def setup_module():
     '''Запуск вебкалькулятора.'''
-    subprocess.run([PATH_TO_WEBCALCULATOR, "start"], check=True)
+    subprocess.run(["C:\\Python\\infotecs_test_task\\resources\\webcalculator.exe", "start"], check=True)
+
 
 def teardown_module():
     '''Остановка вебкалькулятора.'''
-    subprocess.run([PATH_TO_WEBCALCULATOR, "stop"], check=True)
+    subprocess.run(["C:\\Python\\infotecs_test_task\\resources\\webcalculator.exe", "stop"], check=True)
 
-class TestGetApiFunctionByHttpMethods:
-    def test_OptionsRequest_ReturnOkStatusCode(self):
-        '''Допустимы следующие типы запросов: POST/GET/OPTIONS'''
-        response = requests.options(
-            url='http://127.0.0.1:17678/api/state',
-            timeout=1.5)
-        assert response.ok
-
-    def test_GetRequest_ReturnOkStatusCode(self):
-        '''Допустимы следующие типы запросов: POST/GET/OPTIONS'''
-        response = requests.get(
-            url='http://127.0.0.1:17678/api/state',
-            timeout=1.5)
-        assert response.ok
-
-    def test_PostRequest_ReturnNotOkStatusCode(self):
-        '''Допустимы следующие типы запросов: POST/GET/OPTIONS'''
-        response = requests.post(
-            url='http://127.0.0.1:17678/api/state',
-            timeout=1.5)
-        assert not response.ok
-
-    def test_HeadRequest_ReturnNotOkStatusCode(self):
-        '''Допустимы следующие типы запросов: POST/GET/OPTIONS'''
-        response = requests.head(
-            url='http://127.0.0.1:17678/api/state',
-            timeout=1.5)
-        assert not response.ok
-
-    def test_PutRequest_ReturnNotOkStatusCode(self):
-        '''Допустимы следующие типы запросов: POST/GET/OPTIONS'''
-        response = requests.put(
-            url='http://127.0.0.1:17678/api/state',
-            timeout=1.5)
-        assert not response.ok
-
-    def test_PatchRequest_ReturnNotOkStatusCode(self):
-        '''Допустимы следующие типы запросов: POST/GET/OPTIONS'''
-        response = requests.patch(
-            url='http://127.0.0.1:17678/api/state',
-            timeout=1.5)
-        assert not response.ok
-
-    def test_DeleteRequest_ReturnNotOkStatusCode(self):
-        '''Допустимы следующие типы запросов: POST/GET/OPTIONS'''
-        response = requests.delete(
-            url='http://127.0.0.1:17678/api/state',
-            timeout=1.5)
-        assert not response.ok
+@pytest.mark.parametrize(
+    "http_method, validity",
+    [('OPTIONS', True),
+     ('GET', True),
+     ('POST', False),
+     ('HEAD', False),
+     ('PUT', False),
+     ('PATCH', False),
+     ('DELETE', False)])
+def test_HttpMethodToStateApiMethodsRequest(api_method, http_method, validity):
+    response = requests.request(http_method, url=f'{API_URL}{api_method}', timeout=3)
+    assert response.ok == validity
 
 
-
-class TestPostApiFunctionByHttpMethods:
-    def test_OptionsRequest_ReturnOkStatusCode(self):
-        '''Допустимы следующие типы запросов: POST/GET/OPTIONS'''
-        response = requests.options(
-            url='http://127.0.0.1:17678/api/addition',
-            timeout=1.5)
-        assert response.ok
-
-    def test_GetRequest_ReturnNotOkStatusCode(self):
-        '''Допустимы следующие типы запросов: POST/GET/OPTIONS'''
-        response = requests.get(
-            url='http://127.0.0.1:17678/api/addition',
-            timeout=1.5)
-        assert not response.ok
-
-    def test_PostRequest_ReturnOkStatusCode(self):
-        '''Допустимы следующие типы запросов: POST/GET/OPTIONS'''
-        response = requests.post(
-            url='http://127.0.0.1:17678/api/addition',
-            timeout=1.5)
-        assert response.ok
-
-    def test_HeadRequest_ReturnNotOkStatusCode(self):
-        '''Допустимы следующие типы запросов: POST/GET/OPTIONS'''
-        response = requests.head(
-            url='http://127.0.0.1:17678/api/addition',
-            timeout=1.5)
-        assert not response.ok
-
-    def test_PutRequest_ReturnNotOkStatusCode(self):
-        '''Допустимы следующие типы запросов: POST/GET/OPTIONS'''
-        response = requests.put(
-            url='http://127.0.0.1:17678/api/addition',
-            timeout=1.5)
-        assert not response.ok
-
-    def test_PatchRequest_ReturnNotOkStatusCode(self):
-        '''Допустимы следующие типы запросов: POST/GET/OPTIONS'''
-        response = requests.patch(
-            url='http://127.0.0.1:17678/api/addition',
-            timeout=1.5)
-        assert not response.ok
-
-    def test_DeleteRequest_ReturnNotOkStatusCode(self):
-        '''Допустимы следующие типы запросов: POST/GET/OPTIONS'''
-        response = requests.delete(
-            url='http://127.0.0.1:17678/api/addition',
-            timeout=1.5)
-        assert not response.ok
+@pytest.mark.parametrize("api_method", ["addition", "multiplication", "division", "remainder"])
+@pytest.mark.parametrize(
+    "http_method, validity",
+    [("OPTIONS", True),
+     ("GET", False),
+     ("POST", True),
+     ("HEAD", False),
+     ("PUT", False),
+     ("PATCH", False),
+     ("DELETE", False)])
+def test_HttpMethodsToCalculateApiMethodRequests(api_method, http_method, validity):
+    response = requests.request(http_method, url=f'{API_URL}{api_method}', timeout=3)
+    assert response.ok == validity

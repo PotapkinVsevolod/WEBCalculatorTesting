@@ -1,9 +1,36 @@
+'''
+Написать тесты, проверяющие основную функциональность приложения:
+правильность вычисления результата при указании допустимых входных данных.
+
+Для обращения к необходимой api-функции (далее задаче) необходимо указать в адресе запроса
+её имя в следующем формате: http://host:port/api/имя_задачи
+________________________________________________________
+|Задача        |Описание                  |Тип запроса  |
+|______________|__________________________|_____________|
+|addition      |Сложение x и y            |POST         |
+|______________|__________________________|_____________|
+|multiplication|Умножение x и y           |POST         |
+|______________|__________________________|_____________|
+|division      |Деление на цело x на y    |POST         |
+|______________|__________________________|_____________|
+|remainder     |Остаток от деления x на y |POST         |
+|______________|__________________________|_____________|
+
+Пример адреса запроса: http://192.168.7.54:12345/api/addition
+
+Для задач типа POST тело запроса должно содержать json с ключами “x” и “y”,
+и значениями типа integer. Пример тела запроса: {“x”:42, “y”:24}.
+
+На входные значения налагаются следующие ограничения:
+    Только целые числа
+    Каждое число должно быть в диапазоне от -2147483648 до 2147483647
+'''
 import subprocess
 
 import requests
 import pytest
 
-PATH_TO_WEBCALCULATOR = "C:\\Python\\infotecs_test_task\\resorces\\webcalculator.exe"
+PATH_TO_WEBCALCULATOR = "C:\\Python\\infotecs_test_task\\resources\\webcalculator.exe"
 
 def setup_module():
     '''Запуск вебкалькулятора.'''
@@ -27,12 +54,11 @@ def teardown_module():
      (0, -98765432, -98765432),
      (0, -123, -123),
      (0, 0, 0)])
-def test_addition(x, y, expected_result):
-
+def test_addition_method_request_return_correct_result(x, y, expected_result):
+    '''Ожидаемый формат ответа - {"statusCode": 0, "result": результат операции(int)}'''
     response_body = requests.post(
         url="http://127.0.0.1:17678/api/addition",
         json={"x": x, "y": y}, timeout=1.5).json()
-
     assert response_body["result"] == expected_result
 
 
@@ -48,12 +74,11 @@ def test_addition(x, y, expected_result):
      (0, -915, 0),
      (0, 0, 0),
      (256, -1, -256)])
-def test_multiplication(x, y, expected_result):
-
+def test_multiplication_method_request_return_correct_result(x, y, expected_result):
+    '''Ожидаемый формат ответа - {"statusCode": 0, "result": результат операции(int)}'''
     response_body = requests.post(
         url="http://127.0.0.1:17678/api/multiplication",
         json={"x": x, "y": y}, timeout=1.5).json()
-
     assert response_body["result"] == expected_result
 
 
@@ -66,12 +91,11 @@ def test_multiplication(x, y, expected_result):
      (0, 123123123, 0),
      (0, -987987, 0),
      (159260371, -1, -159260371)])
-def test_division(x, y, expected_result):
-
+def test_division_method_request_return_correct_result(x, y, expected_result):
+    '''Ожидаемый формат ответа - {"statusCode": 0, "result": результат операции(int)}'''
     response_body = requests.post(
         url="http://127.0.0.1:17678/api/division",
         json={"x": x, "y": y}, timeout=1.5).json()
-
     assert response_body["result"] == expected_result
 
 
@@ -85,10 +109,9 @@ def test_division(x, y, expected_result):
      (0, 123234345, 0),
      (0, -98787, 0),
      (1100, -1, 0)])
-def test_remainder(x, y, expected_result):
-
+def test_remainder_method_request_return_correct_result(x, y, expected_result):
+    '''Ожидаемый формат ответа - {"statusCode": 0, "result": результат операции(int)}'''
     response_body = requests.post(
         url="http://127.0.0.1:17678/api/remainder",
         json={"x": x, "y": y}, timeout=1.5).json()
-
     assert response_body["result"] == expected_result
