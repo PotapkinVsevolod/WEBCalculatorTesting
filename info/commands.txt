@@ -1,2 +1,0 @@
-pytest -v ./tests/test_calculation.py ./tests/test_functionality.py ./tests/test_interface.py > pytest.log
-- генерация наобходимого автоотчета

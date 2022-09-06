@@ -2,7 +2,7 @@ import subprocess
 
 import requests
 
-PATH_TO_WEBCALCULATOR = "C:\\Python\\infotecs_test_task\\src\\webcalculator.exe"
+PATH_TO_WEBCALCULATOR = "C:\\Python\\infotecs_test_task\\resorces\\webcalculator.exe"
 
 def setup_module():
     '''Запуск вебкалькулятора.'''
@@ -16,7 +16,7 @@ def teardown_module():
         check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 
-def test_state():
+def test_GetRequestStateApiFunction_ReturnCorrectJson():
     response_body = requests.get(
         url='http://127.0.0.1:17678/api/state',
         timeout=1.5).json()
@@ -25,7 +25,7 @@ def test_state():
     assert response_body["state"] == "OK"
 
 
-def test_addition():
+def test_PostRequestAdditionApiFunction_ReturnCorrectJson():
     response_body = requests.post(
         url='http://127.0.0.1:17678/api/addition',
         json={"x": 1, "y": 2}, timeout=1.5).json()
@@ -34,7 +34,7 @@ def test_addition():
     assert isinstance(response_body["result"], int)
 
 
-def test_multiplication():
+def test_PostRequestMultiplication_ReturnCorrectJson():
     response_body = requests.post(
         url='http://127.0.0.1:17678/api/multiplication',
         json={"x": 1, "y": 2}, timeout=1.5).json()
@@ -43,7 +43,7 @@ def test_multiplication():
     assert isinstance(response_body["result"], int)
 
 
-def test_division():
+def test_PostRequestDivision_ReturnCorrectJson():
     response_body = requests.post(
         url='http://127.0.0.1:17678/api/division',
         json={"x": 1, "y": 2}, timeout=1.5).json()
@@ -52,7 +52,7 @@ def test_division():
     assert isinstance(response_body["result"], int)
 
 
-def test_remainder():
+def test_PostRequestRemainder_ReturnCorrectJson():
     response_body = requests.post(
         url='http://127.0.0.1:17678/api/remainder',
         json={"x": 1, "y": 2}, timeout=1.5).json()

@@ -16,7 +16,7 @@ import requests
 
 def setup_module():
     '''Запуск вебкалькулятора.'''
-    subprocess.run(["C:\\Python\\infotecs_test_task\\src\\webcalculator.exe", "start"], check=True)
+    subprocess.run(["C:\\Python\\infotecs_test_task\\resorces\\webcalculator.exe", "start"], check=True)
 
 
 def teardown_module():

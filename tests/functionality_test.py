@@ -3,9 +3,9 @@ import subprocess
 import requests
 import pytest
 
-PATH_TO_WEBCALCULATOR = "C:\\Python\\infotecs_test_task\\src\\webcalculator.exe"
+PATH_TO_WEBCALCULATOR = "C:\\Python\\infotecs_test_task\\resorces\\webcalculator.exe"
 
-def test_start_webcalulator_on_specified_host_port_ok():
+def test_StartWebcalulatorOnSpecifiedHostPortGetRequest_ReturnOkStatusCode():
     host = "127.200.200.200"
     port = "5346"
 
@@ -17,7 +17,7 @@ def test_start_webcalulator_on_specified_host_port_ok():
 
     assert response.ok
 
-def test_start_webcalulator_on_default_port_ok():
+def test_StartWebcalulatorOnDefaultPortGetRequest_ReturnOkStatusCode():
     host = "127.200.200.200"
 
     subprocess.run([PATH_TO_WEBCALCULATOR, "start", host],
@@ -28,7 +28,7 @@ def test_start_webcalulator_on_default_port_ok():
 
     assert response.ok
 
-def test_start_webcalulator_on_default_host_port_ok():
+def test_StartWebcalulatorOnDefaultHostPortGetRequest_ReturnOkStatusCode():
 
     subprocess.run([PATH_TO_WEBCALCULATOR, "start"],
         check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
@@ -39,7 +39,7 @@ def test_start_webcalulator_on_default_host_port_ok():
     assert response.ok
 
 
-def test_stop_webcalulator_ok():
+def test_StartAndStopWebcalculatorGetRequest_RaiseConnectionError():
 
     subprocess.run([PATH_TO_WEBCALCULATOR, "start"],
         check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
@@ -50,7 +50,7 @@ def test_stop_webcalulator_ok():
         requests.get(url="http://127.0.0.1:17678/api/state", timeout=3)
 
 
-def test_restart_webcalulator_ok():
+def test_StartAndRestartWebcalulatorGetRequest_ReturnOkStatusCode():
 
     subprocess.run([PATH_TO_WEBCALCULATOR, "start"],
         check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
