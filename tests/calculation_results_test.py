@@ -54,7 +54,7 @@ def teardown_module():
      (0, -98765432, -98765432),
      (0, -123, -123),
      (0, 0, 0)])
-def test_addition_method_request_return_correct_result(x, y, expected_result):
+def test_x_plus_y_equals_expected_result(x, y, expected_result):
     '''Ожидаемый формат ответа - {"statusCode": 0, "result": результат операции(int)}'''
     response_body = requests.post(
         url="http://127.0.0.1:17678/api/addition",
@@ -74,7 +74,7 @@ def test_addition_method_request_return_correct_result(x, y, expected_result):
      (0, -915, 0),
      (0, 0, 0),
      (256, -1, -256)])
-def test_multiplication_method_request_return_correct_result(x, y, expected_result):
+def test_x_times_y_equals_expected_result(x, y, expected_result):
     '''Ожидаемый формат ответа - {"statusCode": 0, "result": результат операции(int)}'''
     response_body = requests.post(
         url="http://127.0.0.1:17678/api/multiplication",
@@ -91,7 +91,7 @@ def test_multiplication_method_request_return_correct_result(x, y, expected_resu
      (0, 123123123, 0),
      (0, -987987, 0),
      (159260371, -1, -159260371)])
-def test_division_method_request_return_correct_result(x, y, expected_result):
+def test_x_divided_by_y_equals_expected_result(x, y, expected_result):
     '''Ожидаемый формат ответа - {"statusCode": 0, "result": результат операции(int)}'''
     response_body = requests.post(
         url="http://127.0.0.1:17678/api/division",
@@ -109,7 +109,7 @@ def test_division_method_request_return_correct_result(x, y, expected_result):
      (0, 123234345, 0),
      (0, -98787, 0),
      (1100, -1, 0)])
-def test_remainder_method_request_return_correct_result(x, y, expected_result):
+def test_the_remainder_after_dividing_x_by_y_equals_expected_result(x, y, expected_result):
     '''Ожидаемый формат ответа - {"statusCode": 0, "result": результат операции(int)}'''
     response_body = requests.post(
         url="http://127.0.0.1:17678/api/remainder",

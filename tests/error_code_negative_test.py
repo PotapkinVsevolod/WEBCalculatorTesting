@@ -23,14 +23,14 @@ def setup_module():
     '''Запуск вебкалькулятора.'''
     subprocess.run(
         ["C:\\Python\\infotecs_test_task\\resources\\webcalculator.exe", "start"],
-        check=True)
+        check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 
 def teardown_module():
     '''Остановка вебкалькулятора.'''
     subprocess.run(
         ["C:\\Python\\infotecs_test_task\\resources\\webcalculator.exe", "stop"],
-        check=True)
+        check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 class TestCalculateError:
     def test_zero_division(self):

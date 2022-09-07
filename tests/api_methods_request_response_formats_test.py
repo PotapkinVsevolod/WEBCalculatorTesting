@@ -49,7 +49,7 @@ def teardown_module():
         check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 
-def test_get_request_to_state_api_method_return_correct_json():
+def test_get_request_to_get_state_api_method_return_correct_json():
     '''Ожидаемый формат ответа - {'statusCode': 0, 'state': 'OК'}'''
     response_body = requests.get(url=f'{API_URL}state', timeout=1.5).json()
     assert len(response_body) == 2
