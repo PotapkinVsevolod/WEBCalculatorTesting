@@ -24,8 +24,8 @@ def teardown_module():
      ('PUT', False),
      ('PATCH', False),
      ('DELETE', False)])
-def test_HttpMethodToStateApiMethodsRequest(api_method, http_method, validity):
-    response = requests.request(http_method, url=f'{API_URL}{api_method}', timeout=3)
+def test_HttpMethodToStateApiMethodsRequest(http_method, validity):
+    response = requests.request(http_method, url=f'{API_URL}state', timeout=3)
     assert response.ok == validity
 
 
