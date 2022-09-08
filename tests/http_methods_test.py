@@ -24,7 +24,7 @@ def teardown_module():
      ('PUT', False),
      ('PATCH', False),
      ('DELETE', False)])
-def test_HttpMethodToStateApiMethodsRequest(http_method, validity):
+def test_http_method_request_to_state_api_method_response_not_error_status_code(http_method, validity):
     response = requests.request(http_method, url=f'{API_URL}state', timeout=10)
     assert response.ok == validity
 
@@ -39,6 +39,6 @@ def test_HttpMethodToStateApiMethodsRequest(http_method, validity):
      ("PUT", False),
      ("PATCH", False),
      ("DELETE", False)])
-def test_HttpMethodsToCalculateApiMethodRequests(api_method, http_method, validity):
+def test_http_method_request_to_calculate_api_methods_response_not_error_status_code(api_method, http_method, validity):
     response = requests.request(http_method, url=f'{API_URL}{api_method}', timeout=10)
     assert response.ok == validity
