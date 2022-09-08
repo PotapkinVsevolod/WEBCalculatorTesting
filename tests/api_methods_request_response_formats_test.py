@@ -51,17 +51,19 @@ def teardown_module():
 
 def test_get_request_to_get_state_api_method_return_correct_json():
     '''Ожидаемый формат ответа - {'statusCode': 0, 'state': 'OК'}'''
-    response_body = requests.get(url=f'{API_URL}state', timeout=1.5).json()
+    response_body = requests.get(url=f'{API_URL}state', timeout=10).json()
     assert len(response_body) == 2
-    assert response_body["statusCode"] == 0
-    assert response_body["state"] == "OK"
+    assert response_body['statusCode'] == 0
+    # В приложении к ТЗ не указана кодировка, pytest ожидает OK по умолчанию в utf-8
+    assert response_body['state'] == "OK" 
 
 
 @pytest.mark.parametrize("api_method", ["addition", "multiplication", "division", "remainder"])
 def test_post_request_to_post_api_methods_return_correct_json(api_method):
     '''Ожидаемый формат ответа - {"statusCode": 0, "result": результат операции(int)}'''
     response_body = requests.post(
-        url=f'{API_URL}{api_method}', timeout=1.5, json={"x": 42, "y": 24}).json()
+        url=f'{API_URL}{api_method}', timeout=10, json={"x": 42, "y": 24}).json()
     assert len(response_body) == 2
-    assert response_body["statusCode"] == 0
-    assert isinstance(response_body["result"], int)
+    assert response_body['statusCode'] == 0
+    assert isinstance(response_body['result'], int) 
+
