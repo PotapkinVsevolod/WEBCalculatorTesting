@@ -19,13 +19,13 @@ def teardown_module():
     "http_method, validity",
     [('OPTIONS', True),
      ('GET', True),
-     ('POST', False),
+     ('POST', True),
      ('HEAD', False),
      ('PUT', False),
      ('PATCH', False),
      ('DELETE', False)])
 def test_HttpMethodToStateApiMethodsRequest(http_method, validity):
-    response = requests.request(http_method, url=f'{API_URL}state', timeout=3)
+    response = requests.request(http_method, url=f'{API_URL}state', timeout=10)
     assert response.ok == validity
 
 
@@ -33,12 +33,12 @@ def test_HttpMethodToStateApiMethodsRequest(http_method, validity):
 @pytest.mark.parametrize(
     "http_method, validity",
     [("OPTIONS", True),
-     ("GET", False),
+     ("GET", True),
      ("POST", True),
      ("HEAD", False),
      ("PUT", False),
      ("PATCH", False),
      ("DELETE", False)])
 def test_HttpMethodsToCalculateApiMethodRequests(api_method, http_method, validity):
-    response = requests.request(http_method, url=f'{API_URL}{api_method}', timeout=3)
+    response = requests.request(http_method, url=f'{API_URL}{api_method}', timeout=10)
     assert response.ok == validity

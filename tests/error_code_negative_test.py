@@ -38,7 +38,7 @@ class TestCalculateError:
         Описание ошибки - Ошибка вычисления'''
         response_body = requests.post(
             url="http://127.0.0.1:17678/api/division",
-            json={"x": 5, "y": 0}, timeout=1.5).json()
+            json={"x": 5, "y": 0}, timeout=10).json()
         assert len(response_body) == 2
         assert response_body["statusCode"] == 1
         assert isinstance(response_body["statusMessage"], str)
@@ -48,7 +48,7 @@ class TestCalculateError:
         Описание ошибки - Ошибка вычисления'''
         response_body = requests.post(
             url="http://127.0.0.1:17678/api/remainder",
-            json={"x": 5, "y": 0}, timeout=1.5).json()
+            json={"x": 5, "y": 0}, timeout=10).json()
         assert len(response_body) == 2
         assert response_body["statusCode"] == 1
         assert isinstance(response_body["statusMessage"], str)
@@ -59,7 +59,7 @@ class TestNotEnoughKeysError:
         Описание ошибки - Не хватает ключей в теле запроса'''
         response_body = requests.post(
             url="http://127.0.0.1:17678/api/addition",
-            json={"x": 23}, timeout=1.5). json()
+            json={"x": 23}, timeout=10). json()
         assert len(response_body) == 2
         assert response_body["statusCode"] == 2
         assert isinstance(response_body["statusMessage"], str)
@@ -69,7 +69,7 @@ class TestNotEnoughKeysError:
         Описание ошибки - Не хватает ключей в теле запроса'''
         response_body = requests.post(
             url="http://127.0.0.1:17678/api/addition",
-            json={}, timeout=1.5).json()
+            json={}, timeout=10).json()
         assert len(response_body) == 2
         assert response_body["statusCode"] == 2
         assert isinstance(response_body["statusMessage"], str)
@@ -80,7 +80,7 @@ class TestNotIntegerValueError:
         Описание ошибки - Одно из значений не является целым числом'''
         response_body = requests.post(
             url="http://127.0.0.1:17678/api/addition",
-            json={"x": 2.2, "y": 3}, timeout=1.5).json()
+            json={"x": 2.2, "y": 3}, timeout=10).json()
         assert len(response_body) == 2
         assert response_body["statusCode"] == 3
         assert isinstance(response_body["statusMessage"], str)
@@ -90,7 +90,7 @@ class TestNotIntegerValueError:
         Описание ошибки - Одно из значений не является целым числом'''
         response_body = requests.post(
             url="http://127.0.0.1:17678/api/addition",
-            json={"x": 2.2, "y": 1.3}, timeout=1.5).json()
+            json={"x": 2.2, "y": 1.3}, timeout=10).json()
         assert len(response_body) == 2
         assert response_body["statusCode"] == 3
         assert isinstance(response_body["statusMessage"], str)
@@ -100,7 +100,7 @@ class TestNotIntegerValueError:
         Описание ошибки - Одно из значений не является целым числом'''
         response_body = requests.post(
             url="http://127.0.0.1:17678/api/addition",
-            json={"x": True, "y": 3}, timeout=1.5).json()
+            json={"x": True, "y": 3}, timeout=10).json()
         assert len(response_body) == 2
         assert response_body["statusCode"] == 3
         assert isinstance(response_body["statusMessage"], str)
@@ -110,7 +110,7 @@ class TestNotIntegerValueError:
         Описание ошибки - Одно из значений не является целым числом'''
         response_body = requests.post(
             url="http://127.0.0.1:17678/api/addition",
-            json={"x": "f", "y": 1}, timeout=1.5).json()
+            json={"x": "f", "y": 1}, timeout=10).json()
         assert len(response_body) == 2
         assert response_body["statusCode"] == 3
         assert isinstance(response_body["statusMessage"], str)
@@ -120,7 +120,7 @@ class TestNotIntegerValueError:
         Описание ошибки - Одно из значений не является целым числом'''
         response_body = requests.post(
             url="http://127.0.0.1:17678/api/addition",
-            json={"x": {}, "y": 1}, timeout=1.5).json()
+            json={"x": {}, "y": 1}, timeout=10).json()
         assert len(response_body) == 2
         assert response_body["statusCode"] == 3
         assert isinstance(response_body["statusMessage"], str)
@@ -130,7 +130,7 @@ class TestNotIntegerValueError:
         Описание ошибки - Одно из значений не является целым числом'''
         response_body = requests.post(
             url="http://127.0.0.1:17678/api/addition",
-            json={"x": (), "y": 1}, timeout=1.5).json()
+            json={"x": (), "y": 1}, timeout=10).json()
         assert len(response_body) == 2
         assert response_body["statusCode"] == 3
         assert isinstance(response_body["statusMessage"], str)
@@ -140,7 +140,7 @@ class TestNotIntegerValueError:
         Описание ошибки - Одно из значений не является целым числом'''
         response_body = requests.post(
             url="http://127.0.0.1:17678/api/addition",
-            json={"x": [], "y": 1}, timeout=1.5).json()
+            json={"x": [], "y": 1}, timeout=10).json()
         assert len(response_body) == 2
         assert response_body["statusCode"] == 3
         assert isinstance(response_body["statusMessage"], str)
@@ -152,7 +152,7 @@ class TestValueSizeError:
         Описание ошибки - Превышен размер одного из значений'''
         response_body = requests.post(
             url="http://127.0.0.1:17678/api/addition",
-            json={"x": 2147483648, "y": 3}, timeout=1.5).json()
+            json={"x": 2147483648, "y": 3}, timeout=10).json()
         assert len(response_body) == 2
         assert response_body["statusCode"] == 4
         assert isinstance(response_body["statusMessage"], str)
@@ -163,7 +163,7 @@ class TestValueSizeError:
         Описание ошибки - Превышен размер одного из значений'''
         response_body = requests.post(
             url="http://127.0.0.1:17678/api/addition",
-            json={"x": 3, "y": -2147483649}, timeout=1.5).json()
+            json={"x": 3, "y": -2147483649}, timeout=10).json()
         assert len(response_body) == 2
         assert response_body["statusCode"] == 4
         assert isinstance(response_body["statusMessage"], str)
@@ -174,7 +174,7 @@ class TestValueSizeError:
         Описание ошибки - Превышен размер одного из значений'''
         response_body = requests.post(
             url="http://127.0.0.1:17678/api/addition",
-            json={"x": 3, "y": -99999999999999999999999999999999999}, timeout=1.5).json()
+            json={"x": 3, "y": -99999999999999999999999999999999999}, timeout=10).json()
         assert len(response_body) == 2
         assert response_body["statusCode"] == 4
         assert isinstance(response_body["statusMessage"], str)
@@ -184,7 +184,7 @@ class TestInvalidRequestBodyError:
         '''Ожидаемый формат ответа - {"statusCode": 5, "statusMessage": сообщение об ошибке}
         Описание ошибки - Неправильный формат тела запроса'''
         response_body = requests.post(
-            url="http://127.0.0.1:17678/api/addition", timeout=1.5).json()
+            url="http://127.0.0.1:17678/api/addition", timeout=10).json()
         assert len(response_body) == 2
         assert response_body["statusCode"] == 5
         assert isinstance(response_body["statusMessage"], str)
@@ -194,7 +194,7 @@ class TestInvalidRequestBodyError:
         Описание ошибки - Неправильный формат тела запроса'''
         response_body = requests.post(
             url="http://127.0.0.1:17678/api/addition",
-            json={"x": 42, "y": 24, "z": 12}, timeout=1.5).json()
+            json={"x": 42, "y": 24, "z": 12}, timeout=10).json()
         assert len(response_body) == 2
         assert response_body["statusCode"] == 5
         assert isinstance(response_body["statusMessage"], str)
@@ -205,7 +205,7 @@ class TestInvalidRequestBodyError:
         Описание ошибки - Неправильный формат тела запроса'''
         response_body = requests.post(
             url="http://127.0.0.1:17678/api/addition",
-            json={"z": 42, "e": 24}, timeout=1.5).json()
+            json={"z": 42, "e": 24}, timeout=10).json()
         assert len(response_body) == 2
         assert response_body["statusCode"] == 5
         assert isinstance(response_body["statusMessage"], str)
@@ -214,7 +214,7 @@ class TestInvalidRequestBodyError:
         '''Ожидаемый формат ответа - {"statusCode": 5, "statusMessage": сообщение об ошибке}
         Описание ошибки - Неправильный формат тела запроса'''
         response_body = requests.post(
-            url="http://127.0.0.1:17678/api/addition", timeout=1.5, json="I am Json Statham").json()
+            url="http://127.0.0.1:17678/api/addition", timeout=10, json="I am Json Statham").json()
         assert len(response_body) == 2
         assert response_body["statusCode"] == 5
         assert isinstance(response_body["statusMessage"], str)
@@ -224,7 +224,7 @@ class TestInvalidRequestBodyError:
         '''Ожидаемый формат ответа - {"statusCode": 5, "statusMessage": сообщение об ошибке}
         Описание ошибки - Неправильный формат тела запроса'''
         response_body = requests.post(
-            url="http://127.0.0.1:17678/api/addition", timeout=1.5,
+            url="http://127.0.0.1:17678/api/addition", timeout=10,
             json={
                 "werwerwer": 1231231313,
                 "fififififi": 999999999999999999999999999999,
