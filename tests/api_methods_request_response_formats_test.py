@@ -36,17 +36,15 @@ import requests
 
 PATH_TO_WEBCALCULATOR = "C:\\Python\\infotecs_test_task\\resources\\webcalculator.exe"
 API_URL = "http://127.0.0.1:17678/api/"
+RUN_CONFIG = {"check": True, "stdout": subprocess.DEVNULL, "stderr": subprocess.DEVNULL}
 
 def setup_module():
     '''Запуск вебкалькулятора.'''
-    subprocess.run([PATH_TO_WEBCALCULATOR, "start"],
-        check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-
+    subprocess.run([PATH_TO_WEBCALCULATOR, "start"], **RUN_CONFIG)
 
 def teardown_module():
     '''Остановка вебкалькулятора.'''
-    subprocess.run([PATH_TO_WEBCALCULATOR, "stop"],
-        check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    subprocess.run([PATH_TO_WEBCALCULATOR, "stop"], **RUN_CONFIG)
 
 
 def test_get_request_to_get_state_api_method_return_correct_json():

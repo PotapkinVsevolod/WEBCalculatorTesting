@@ -5,15 +5,15 @@ import requests
 
 PATH_TO_WEBCALCULATOR = "C:\\Python\\infotecs_test_task\\resources\\webcalculator.exe"
 API_URL = "http://127.0.0.1:17678/api/"
+RUN_CONFIG = {"check": True, "stdout": subprocess.DEVNULL, "stderr": subprocess.DEVNULL}
 
 def setup_module():
     '''Запуск вебкалькулятора.'''
-    subprocess.run(["C:\\Python\\infotecs_test_task\\resources\\webcalculator.exe", "start"], check=True)
-
+    subprocess.run([PATH_TO_WEBCALCULATOR, "start"], **RUN_CONFIG)
 
 def teardown_module():
     '''Остановка вебкалькулятора.'''
-    subprocess.run(["C:\\Python\\infotecs_test_task\\resources\\webcalculator.exe", "stop"], check=True)
+    subprocess.run([PATH_TO_WEBCALCULATOR, "stop"], **RUN_CONFIG)
 
 @pytest.mark.parametrize(
     "http_method, validity",
