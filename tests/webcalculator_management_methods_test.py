@@ -31,7 +31,7 @@ def test_start_webcalculator_on_specified_host_port_get_request_return_ok_status
 
     subprocess.run([PATH_TO_WEBCALCULATOR, "start", "127.200.200.200", "5346"],
         check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    response = requests.get(url="http://127.200.200.200:5346/api/state", timeout=3)
+    response = requests.get(url="http://127.200.200.200:5346/api/state", timeout=10)
     subprocess.run([PATH_TO_WEBCALCULATOR, "stop"],
         check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
@@ -42,7 +42,7 @@ def test_start_webcalulator_on_default_port_get_request_return_ok_status_code():
 
     subprocess.run([PATH_TO_WEBCALCULATOR, "start", "127.200.200.200"],
         check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    response = requests.get(url="http://127.200.200.200:17678/api/state", timeout=3)
+    response = requests.get(url="http://127.200.200.200:17678/api/state", timeout=10)
     subprocess.run([PATH_TO_WEBCALCULATOR, "stop"],
         check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
@@ -54,7 +54,7 @@ def test_start_webcalulator_on_default_host_port_get_request_return_ok_status_co
 
     subprocess.run([PATH_TO_WEBCALCULATOR, "start"],
         check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    response = requests.get(url="http://127.0.0.1:17678/api/state", timeout=3)
+    response = requests.get(url="http://127.0.0.1:17678/api/state", timeout=10)
     subprocess.run([PATH_TO_WEBCALCULATOR, "stop"],
         check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
@@ -70,7 +70,7 @@ def test_start_and_stop_webcalculator_get_request_raise_connection_error():
         check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
     with pytest.raises(requests.ConnectionError):
-        requests.get(url="http://127.0.0.1:17678/api/state", timeout=3)
+        requests.get(url="http://127.0.0.1:17678/api/state", timeout=10)
 
 
 def test_start_and_restart_webcalulator_get_request_return_ok_status_code():
@@ -81,7 +81,7 @@ def test_start_and_restart_webcalulator_get_request_return_ok_status_code():
         check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     subprocess.run([PATH_TO_WEBCALCULATOR, "restart"],
         check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    response = requests.get(url="http://127.0.0.1:17678/api/state", timeout=3)
+    response = requests.get(url="http://127.0.0.1:17678/api/state", timeout=10)
     subprocess.run([PATH_TO_WEBCALCULATOR, "stop"],
         check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 

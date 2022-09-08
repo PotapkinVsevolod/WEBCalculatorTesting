@@ -1,5 +1,5 @@
-pytest.log
 .vscode
 tests/__pycache__
 env
 report.html
+test.py

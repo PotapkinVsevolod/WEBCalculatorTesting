@@ -42,7 +42,16 @@ class TestCalculateError:
         assert len(response_body) == 2
         assert response_body["statusCode"] == 1
         assert isinstance(response_body["statusMessage"], str)
-
+    
+    def test_zero_remainder(self):
+        '''Ожидаемый формат ответа - {"statusCode": 1, "statusMessage": сообщение об ошибке}
+        Описание ошибки - Ошибка вычисления'''
+        response_body = requests.post(
+            url="http://127.0.0.1:17678/api/remainder",
+            json={"x": 5, "y": 0}, timeout=1.5).json()
+        assert len(response_body) == 2
+        assert response_body["statusCode"] == 1
+        assert isinstance(response_body["statusMessage"], str)
 
 class TestNotEnoughKeysError:
     def test_not_enough_keys(self):
@@ -85,6 +94,16 @@ class TestNotIntegerValueError:
         assert len(response_body) == 2
         assert response_body["statusCode"] == 3
         assert isinstance(response_body["statusMessage"], str)
+   
+    def test_one_number_is_bool(self):
+        '''Ожидаемый формат ответа - {"statusCode": 3, "statusMessage": сообщение об ошибке}
+        Описание ошибки - Одно из значений не является целым числом'''
+        response_body = requests.post(
+            url="http://127.0.0.1:17678/api/addition",
+            json={"x": True, "y": 3}, timeout=1.5).json()
+        assert len(response_body) == 2
+        assert response_body["statusCode"] == 3
+        assert isinstance(response_body["statusMessage"], str)
 
     def test_one_number_is_string(self):
         '''Ожидаемый формат ответа - {"statusCode": 3, "statusMessage": сообщение об ошибке}
@@ -92,6 +111,36 @@ class TestNotIntegerValueError:
         response_body = requests.post(
             url="http://127.0.0.1:17678/api/addition",
             json={"x": "f", "y": 1}, timeout=1.5).json()
+        assert len(response_body) == 2
+        assert response_body["statusCode"] == 3
+        assert isinstance(response_body["statusMessage"], str)
+  
+    def test_one_number_is_dict(self):
+        '''Ожидаемый формат ответа - {"statusCode": 3, "statusMessage": сообщение об ошибке}
+        Описание ошибки - Одно из значений не является целым числом'''
+        response_body = requests.post(
+            url="http://127.0.0.1:17678/api/addition",
+            json={"x": {}, "y": 1}, timeout=1.5).json()
+        assert len(response_body) == 2
+        assert response_body["statusCode"] == 3
+        assert isinstance(response_body["statusMessage"], str)
+  
+    def test_one_number_is_set(self):
+        '''Ожидаемый формат ответа - {"statusCode": 3, "statusMessage": сообщение об ошибке}
+        Описание ошибки - Одно из значений не является целым числом'''
+        response_body = requests.post(
+            url="http://127.0.0.1:17678/api/addition",
+            json={"x": (), "y": 1}, timeout=1.5).json()
+        assert len(response_body) == 2
+        assert response_body["statusCode"] == 3
+        assert isinstance(response_body["statusMessage"], str)
+
+    def test_one_number_is_list(self):
+        '''Ожидаемый формат ответа - {"statusCode": 3, "statusMessage": сообщение об ошибке}
+        Описание ошибки - Одно из значений не является целым числом'''
+        response_body = requests.post(
+            url="http://127.0.0.1:17678/api/addition",
+            json={"x": [], "y": 1}, timeout=1.5).json()
         assert len(response_body) == 2
         assert response_body["statusCode"] == 3
         assert isinstance(response_body["statusMessage"], str)
@@ -103,7 +152,7 @@ class TestValueSizeError:
         Описание ошибки - Превышен размер одного из значений'''
         response_body = requests.post(
             url="http://127.0.0.1:17678/api/addition",
-            json={"x": 999999999999999999999, "y": 3}, timeout=1.5).json()
+            json={"x": 2147483648, "y": 3}, timeout=1.5).json()
         assert len(response_body) == 2
         assert response_body["statusCode"] == 4
         assert isinstance(response_body["statusMessage"], str)
@@ -114,11 +163,21 @@ class TestValueSizeError:
         Описание ошибки - Превышен размер одного из значений'''
         response_body = requests.post(
             url="http://127.0.0.1:17678/api/addition",
-            json={"x": 3, "y": -999999999999999999999}, timeout=1.5).json()
+            json={"x": 3, "y": -2147483649}, timeout=1.5).json()
         assert len(response_body) == 2
         assert response_body["statusCode"] == 4
         assert isinstance(response_body["statusMessage"], str)
-
+   
+    def test_really_big_size(self):
+        '''Требование к размеру значения - от -2147483648 до 2147483647
+        Ожидаемый формат ответа - {"statusCode": 4, "statusMessage": сообщение об ошибке}
+        Описание ошибки - Превышен размер одного из значений'''
+        response_body = requests.post(
+            url="http://127.0.0.1:17678/api/addition",
+            json={"x": 3, "y": -99999999999999999999999999999999999}, timeout=1.5).json()
+        assert len(response_body) == 2
+        assert response_body["statusCode"] == 4
+        assert isinstance(response_body["statusMessage"], str)
 
 class TestInvalidRequestBodyError:
     def test_request_without_json(self):
@@ -156,6 +215,28 @@ class TestInvalidRequestBodyError:
         Описание ошибки - Неправильный формат тела запроса'''
         response_body = requests.post(
             url="http://127.0.0.1:17678/api/addition", timeout=1.5, json="I am Json Statham").json()
+        assert len(response_body) == 2
+        assert response_body["statusCode"] == 5
+        assert isinstance(response_body["statusMessage"], str)
+
+            
+    def test_different_keys_values_json(self):
+        '''Ожидаемый формат ответа - {"statusCode": 5, "statusMessage": сообщение об ошибке}
+        Описание ошибки - Неправильный формат тела запроса'''
+        response_body = requests.post(
+            url="http://127.0.0.1:17678/api/addition", timeout=1.5,
+            json={
+                "werwerwer": 1231231313,
+                "fififififi": 999999999999999999999999999999,
+                "212313131": "asdfghhrewedfghrewsdf",
+                83848234234: True,
+                True: False,
+                123131: 13131313,
+                1.1: 1231,
+                None: [],
+                131: {},
+                "aagag": ()
+            }).json()
         assert len(response_body) == 2
         assert response_body["statusCode"] == 5
         assert isinstance(response_body["statusMessage"], str)
